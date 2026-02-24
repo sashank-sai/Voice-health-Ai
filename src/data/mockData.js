@@ -82,13 +82,3 @@ export const kpiData = {
 };
 
 export const chartBars = [20, 35, 45, 30, 50, 65, 45, 60, 80, 95, 75, 55, 40, 60, 45, 30];
-export const weeklyBars = [40, 55, 70, 60, 75, 85, 90];
-
-export const notifications = [
-    { id: 1, type: "critical", message: "Ambulance dispatched to Warangal Rural — Chest Pain case", time: "2 min ago", read: false },
-    { id: 2, type: "critical", message: "Emergency redirect: Caller #9902 in Adilabad", time: "5 min ago", read: false },
-    { id: 3, type: "warning", message: "Ambulance AMB-07 low fuel (15%) — needs refueling", time: "12 min ago", read: false },
-    { id: 4, type: "info", message: "38 new users registered today", time: "1 hr ago", read: true },
-    { id: 5, type: "success", message: "Daily revenue target reached: $1,240.50", time: "2 hr ago", read: true },
-    { id: 6, type: "warning", message: "Call #8819 failed — unclear audio, retry prompted", time: "3 hr ago", read: true },
-];

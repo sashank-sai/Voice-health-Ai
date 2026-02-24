@@ -1,32 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Activity, Phone } from 'lucide-react';
-import { StatCard, StatusBadge, ProgressBar, FilterButton } from './SharedComponents';
+import { StatCard, StatusBadge, ProgressBar } from './SharedComponents';
+import { ambulances, kpiData } from '../data/mockData';
 
-export default function DispatchUnits({ ambulances, kpis }) {
-    const [filter, setFilter] = useState('All');
-    const filters = ['All', 'Dispatched', 'En Route', 'Available', 'Returning', 'Maintenance'];
-
-    const filtered = ambulances.filter(a => filter === 'All' || a.status === filter);
+export default function DispatchUnits() {
     const activeAmbs = ambulances.filter(a => a.status === 'Dispatched' || a.status === 'En Route');
     const availableAmbs = ambulances.filter(a => a.status === 'Available');
 
     return (
         <>
+            {/* Ambulance KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                <StatCard title="Total Ambulances" value={kpis.ambulancesTotal.toString()} subtext="Registered fleet" icon={Activity} gradient="bg-gradient-to-br from-rose-400 to-rose-600" />
+                <StatCard title="Total Ambulances" value={kpiData.ambulancesTotal.toString()} subtext="Registered fleet" icon={Activity} gradient="bg-gradient-to-br from-rose-400 to-rose-600" />
                 <StatCard title="Currently Active" value={activeAmbs.length.toString()} subtext="On dispatch" icon={Activity} gradient="bg-gradient-to-br from-amber-400 to-amber-600" />
                 <StatCard title="Available" value={availableAmbs.length.toString()} subtext="Ready for dispatch" icon={Activity} gradient="bg-gradient-to-br from-emerald-400 to-emerald-600" />
-                <StatCard title="Avg Response Time" value={kpis.avgResponseTime} subtext="-2 min this week" icon={Phone} gradient="bg-gradient-to-br from-blue-400 to-blue-600" />
-            </div>
-
-            {/* Filters */}
-            <div className="flex flex-wrap space-x-2 mb-6">
-                {filters.map(f => (<FilterButton key={f} label={f} active={filter === f} onClick={() => setFilter(f)} />))}
+                <StatCard title="Avg Response Time" value={kpiData.avgResponseTime} subtext="-2 min this week" icon={Phone} gradient="bg-gradient-to-br from-blue-400 to-blue-600" />
             </div>
 
             {/* Ambulance Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
-                {filtered.map((amb) => (
+                {ambulances.map((amb) => (
                     <div key={amb.id} className={`bg-white rounded-2xl border p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ${amb.status === 'Dispatched' || amb.status === 'En Route' ? 'border-rose-100 bg-gradient-to-br from-white to-rose-50/30' : 'border-slate-100'
                         }`}>
                         <div className="flex justify-between items-start mb-4">
@@ -35,7 +28,9 @@ export default function DispatchUnits({ ambulances, kpis }) {
                                         amb.status === 'Available' ? 'bg-gradient-to-br from-emerald-400 to-emerald-600' :
                                             amb.status === 'Returning' ? 'bg-gradient-to-br from-blue-400 to-blue-600' :
                                                 'bg-gradient-to-br from-slate-400 to-slate-600'
-                                }`}><Activity size={20} /></div>
+                                }`}>
+                                <Activity size={20} />
+                            </div>
                             <StatusBadge status={amb.status} />
                         </div>
                         <h4 className="font-bold text-slate-800 text-lg">{amb.id}</h4>
@@ -53,7 +48,6 @@ export default function DispatchUnits({ ambulances, kpis }) {
                         </div>
                     </div>
                 ))}
-                {filtered.length === 0 && <p className="text-slate-400 text-sm col-span-3 text-center py-8">No ambulances with "{filter}" status</p>}
             </div>
         </>
     );
