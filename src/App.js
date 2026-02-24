@@ -1,25 +1,147 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import {
+  Activity,
+  Phone,
+  DollarSign,
+  Users,
+  Menu,
+  Search,
+  Bell,
+  ChevronRight,
+  Settings
+} from 'lucide-react';
 
-function App() {
+import MissionControl from './components/MissionControl';
+import LiveOperations from './components/LiveOperations';
+import PatientRecords from './components/PatientRecords';
+import DispatchUnits from './components/DispatchUnits';
+import RevenueMetrics from './components/RevenueMetrics';
+
+// --- Sidebar Item ---
+const SidebarItem = ({ icon: Icon, label, active, onClick }) => (
+  <div
+    onClick={onClick}
+    className={`flex items-center space-x-3 px-4 py-3.5 rounded-2xl cursor-pointer transition-all duration-200 group ${active
+        ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
+        : 'text-slate-400 hover:bg-slate-50 hover:text-slate-600'
+      }`}
+  >
+    <Icon size={20} className={active ? "animate-pulse" : "group-hover:scale-110 transition-transform"} />
+    <span className="font-semibold text-sm tracking-wide">{label}</span>
+  </div>
+);
+
+// --- Page Titles ---
+const pageTitles = {
+  mission: { title: "System Overview", subtitle: "Good Morning, Doctor. Here is today's triage report.", breadcrumb: "Dashboard" },
+  live: { title: "Live Operations", subtitle: "Monitor all active and recent calls in real-time.", breadcrumb: "Live Calls" },
+  patients: { title: "Patient Records", subtitle: "Customers currently receiving treatment and monitoring.", breadcrumb: "Patients" },
+  dispatch: { title: "Dispatch Units", subtitle: "Ambulance fleet status, locations, and dispatch history.", breadcrumb: "Ambulances" },
+  revenue: { title: "Revenue Metrics", subtitle: "Financial performance and business analytics.", breadcrumb: "Revenue" },
+};
+
+// --- MAIN APP ---
+export default function VoiceHealthAdmin() {
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  const [activePage, setActivePage] = useState('mission');
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date().toLocaleTimeString()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const pageInfo = pageTitles[activePage];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-[#F8FAFC] flex font-sans text-slate-900 selection:bg-cyan-100">
+
+      {/* Sidebar */}
+      <aside className={`${isSidebarOpen ? 'w-72' : 'w-24'} bg-white border-r border-slate-200 transition-all duration-500 ease-in-out flex flex-col fixed h-full z-50`}>
+        <div className="p-8 flex items-center justify-between">
+          {isSidebarOpen ? (
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/30">V</div>
+              <span className="font-black text-xl tracking-tight text-slate-800">VoiceHealth</span>
+            </div>
+          ) : (
+            <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-lg mx-auto" />
+          )}
+          <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="p-2 hover:bg-slate-50 rounded-xl text-slate-400 hover:text-slate-600 transition-colors">
+            <Menu size={20} />
+          </button>
+        </div>
+
+        <nav className="flex-1 px-6 space-y-3 mt-4">
+          <SidebarItem icon={Activity} label={isSidebarOpen ? "Mission Control" : ""} active={activePage === 'mission'} onClick={() => setActivePage('mission')} />
+          <SidebarItem icon={Phone} label={isSidebarOpen ? "Live Operations" : ""} active={activePage === 'live'} onClick={() => setActivePage('live')} />
+          <SidebarItem icon={Users} label={isSidebarOpen ? "Patient Records" : ""} active={activePage === 'patients'} onClick={() => setActivePage('patients')} />
+          <SidebarItem icon={Activity} label={isSidebarOpen ? "Dispatch Units" : ""} active={activePage === 'dispatch'} onClick={() => setActivePage('dispatch')} />
+          <SidebarItem icon={DollarSign} label={isSidebarOpen ? "Revenue Metrics" : ""} active={activePage === 'revenue'} onClick={() => setActivePage('revenue')} />
+        </nav>
+
+        <div className="p-6">
+          <div className={`bg-slate-50 rounded-2xl p-4 flex items-center space-x-3 border border-slate-100 ${!isSidebarOpen && 'justify-center'}`}>
+            <div className="relative">
+              <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff" className="w-10 h-10 rounded-xl shadow-sm" alt="Admin" />
+              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></div>
+            </div>
+            {isSidebarOpen && (
+              <div className="overflow-hidden">
+                <p className="text-sm font-bold text-slate-700 truncate">Dr. S. Reddy</p>
+                <p className="text-xs text-slate-400 truncate">Chief Medical Officer</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className={`flex-1 ${isSidebarOpen ? 'ml-72' : 'ml-24'} transition-all duration-500 p-8 lg:p-12`}>
+
+        {/* Header */}
+        <header className="flex justify-between items-end mb-10">
+          <div>
+            <div className="flex items-center space-x-2 text-slate-400 text-sm font-medium mb-1">
+              <span>Overview</span>
+              <ChevronRight size={14} />
+              <span className="text-blue-600">{pageInfo.breadcrumb}</span>
+            </div>
+            <h2 className="text-3xl font-black text-slate-800 tracking-tight">{pageInfo.title}</h2>
+            <p className="text-slate-500 font-medium mt-1">{pageInfo.subtitle}</p>
+          </div>
+
+          <div className="flex items-center space-x-6">
+            <div className="text-right hidden md:block">
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Local Time</p>
+              <p className="text-xl font-mono font-bold text-slate-700">{currentTime}</p>
+            </div>
+            <div className="flex space-x-3">
+              <button className="p-3 bg-white border border-slate-200 rounded-xl text-slate-400 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm">
+                <Search size={20} />
+              </button>
+              <button className="p-3 bg-white border border-slate-200 rounded-xl text-slate-400 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm relative">
+                <Bell size={20} />
+                <span className="absolute top-2 right-3 w-2 h-2 bg-rose-500 rounded-full animate-ping"></span>
+              </button>
+              <button className="p-3 bg-white border border-slate-200 rounded-xl text-slate-400 hover:text-blue-600 hover:border-blue-200 transition-all shadow-sm">
+                <Settings size={20} />
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {/* Page Content */}
+        <div className="fade-in-up">
+          {activePage === 'mission' && <MissionControl />}
+          {activePage === 'live' && <LiveOperations />}
+          {activePage === 'patients' && <PatientRecords />}
+          {activePage === 'dispatch' && <DispatchUnits />}
+          {activePage === 'revenue' && <RevenueMetrics />}
+        </div>
+
+      </main>
     </div>
   );
 }
-
-export default App;
