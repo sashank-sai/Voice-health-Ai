@@ -1,28 +1,8 @@
 const items = $input.all();
-
 return items.map(item => {
   const data = item.json;
-
-  // Get ALL accumulated symptoms
-  const allSymptoms = Array.isArray(data.all_accumulated_symptoms)
-    ? data.all_accumulated_symptoms
-    : [];
-
-  const allSymptomsText = allSymptoms.length > 0
-    ? allSymptoms.join(", ")
-    : "no symptoms yet";
-
-  // Current symptoms
-  const currentSymptoms = Array.isArray(data.extracted_symptoms)
-    ? data.extracted_symptoms.join(", ")
-    : "no new symptoms";
-
-  const chatInput = `Patient symptom history: ${allSymptomsText}. Latest user message: "${data.user_input}". New symptoms this turn: ${currentSymptoms}. Emergency level: ${data.emergency_level}. Please ask the most relevant follow-up question without repeating what they've already described.`;
-
-  return {
-    json: {
-      ...data,
-      chatInput
-    }
-  };
+  const symptoms = Array.isArray(data.extracted_symptoms) ? data.extracted_symptoms.join(", ") : "no symptoms listed";
+  const allSymptoms = Array.isArray(data.all_symptoms) ? data.all_symptoms.join(", ") : "none";
+  const chatInput = `User message: "${data.user_input}". Current symptoms: ${symptoms}. ALL symptoms reported this call: ${allSymptoms}. Emergency level: ${data.emergency_level}. Ask the most relevant medical follow-up question. If user wants advice/suggestions, use ALL past symptoms to respond.`;
+  return { json: { ...data, all_symptoms: data.all_symptoms || [], chatInput } };
 });
