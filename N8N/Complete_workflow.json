@@ -1,0 +1,1952 @@
+{
+  "name": "Ambulance + Doctor Call - FULLY FIXED",
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.classification }}",
+                    "rightValue": "EMERGENCY_KEYWORDS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "8435ff76-f5b2-4fd1-96de-5521a2c44487"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Emergency Keywords"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "51c15547-8762-4c64-a419-62fdfa6a6fd3",
+                    "leftValue": "={{ $json.classification }}",
+                    "rightValue": "SYMPTOM_DESCRIPTION",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Symptom Description"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ed836e71-57aa-477f-9b83-d79f7dd57b94",
+                    "leftValue": "={{ $json.classification }}",
+                    "rightValue": "GREETING",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Greeting"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "16647f36-1b6b-486b-b444-15255f3c6b3d",
+                    "leftValue": "={{ $json.classification }}",
+                    "rightValue": "GENERAL_CONVERSATION",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "General Conversation"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "61381e41-8c66-438d-9a2e-5451a179f003",
+                    "leftValue": "={{ $json.classification }}",
+                    "rightValue": "CLARIFICATION_RESPONSE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Clarification Response"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8be01d1f-6a42-4fb9-8551-70245224881a",
+                    "leftValue": "={{ $json.classification }}",
+                    "rightValue": "GOODBYE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Goodbye"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ea14339e-474a-4fd9-ae93-be15a2fd0657",
+                    "leftValue": "={{ $json.classification }}",
+                    "rightValue": "Pleasetalk",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Please Talk"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "prescription-condition",
+                    "leftValue": "={{ $json.classification }}",
+                    "rightValue": "PRESCRIPTION_REQUEST",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Prescription Request"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -672,
+        704
+      ],
+      "id": "715507bd-4433-4327-8e84-859d17b17ba4",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e1",
+              "name": "classification",
+              "value": "={{ $json.classification }}",
+              "type": "string"
+            },
+            {
+              "id": "e2",
+              "name": "user_input",
+              "value": "={{ $json.user_input }}",
+              "type": "string"
+            },
+            {
+              "id": "e3",
+              "name": "extracted_symptoms",
+              "value": "={{ $json.extracted_symptoms }}",
+              "type": "array"
+            },
+            {
+              "id": "e4",
+              "name": "emergency_level",
+              "value": "={{ $json.emergency_level }}",
+              "type": "string"
+            },
+            {
+              "id": "e5",
+              "name": "next_action",
+              "value": "={{ $json.next_action }}",
+              "type": "string"
+            },
+            {
+              "id": "e6",
+              "name": "emergency_detected",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "e7",
+              "name": "branch_type",
+              "value": "emergency",
+              "type": "string"
+            },
+            {
+              "id": "e8",
+              "name": "conversation_stage",
+              "value": "emergency_response",
+              "type": "string"
+            },
+            {
+              "id": "e9",
+              "name": "all_symptoms",
+              "value": "={{ $json.all_symptoms || [] }}",
+              "type": "array"
+            },
+            {
+              "id": "e10",
+              "name": "caller_number",
+              "value": "={{ $json.caller_number }}",
+              "type": "string"
+            },
+            {
+              "id": "e11",
+              "name": "call_sid",
+              "value": "={{ $json.call_sid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        192
+      ],
+      "id": "6946fd43-9d81-4e3f-b1c8-305b11612bf8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "s1-1",
+              "name": "classification",
+              "value": "={{ $json.classification }}",
+              "type": "string"
+            },
+            {
+              "id": "s1-2",
+              "name": "user_input",
+              "value": "={{ $json.user_input }}",
+              "type": "string"
+            },
+            {
+              "id": "s1-3",
+              "name": "extracted_symptoms",
+              "value": "={{ $json.extracted_symptoms }}",
+              "type": "array"
+            },
+            {
+              "id": "s1-4",
+              "name": "emergency_level",
+              "value": "={{ $json.emergency_level }}",
+              "type": "string"
+            },
+            {
+              "id": "s1-5",
+              "name": "next_action",
+              "value": "={{ $json.next_action }}",
+              "type": "string"
+            },
+            {
+              "id": "s1-6",
+              "name": "has_symptoms",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "s1-7",
+              "name": "branch_type",
+              "value": "symptom_analysis",
+              "type": "string"
+            },
+            {
+              "id": "s1-8",
+              "name": "conversation_stage",
+              "value": "analyzing_symptoms",
+              "type": "string"
+            },
+            {
+              "id": "s1-9",
+              "name": "all_symptoms",
+              "value": "={{ $json.all_symptoms || [] }}",
+              "type": "array"
+            },
+            {
+              "id": "s1-10",
+              "name": "caller_number",
+              "value": "={{ $json.caller_number }}",
+              "type": "string"
+            },
+            {
+              "id": "s1-11",
+              "name": "call_sid",
+              "value": "={{ $json.call_sid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        400
+      ],
+      "id": "e0c4dc78-6493-4dae-963f-2896c2a878b4",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "s2-1",
+              "name": "classification",
+              "value": "={{ $json.classification }}",
+              "type": "string"
+            },
+            {
+              "id": "s2-2",
+              "name": "user_input",
+              "value": "={{ $json.user_input }}",
+              "type": "string"
+            },
+            {
+              "id": "s2-3",
+              "name": "extracted_symptoms",
+              "value": "={{ $json.extracted_symptoms }}",
+              "type": "array"
+            },
+            {
+              "id": "s2-4",
+              "name": "emergency_level",
+              "value": "={{ $json.emergency_level }}",
+              "type": "string"
+            },
+            {
+              "id": "s2-5",
+              "name": "next_action",
+              "value": "={{ $json.next_action }}",
+              "type": "string"
+            },
+            {
+              "id": "s2-6",
+              "name": "greeting_received",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "s2-7",
+              "name": "branch_type",
+              "value": "greeting",
+              "type": "string"
+            },
+            {
+              "id": "s2-8",
+              "name": "conversation_stage",
+              "value": "welcome",
+              "type": "string"
+            },
+            {
+              "id": "s2-9",
+              "name": "all_symptoms",
+              "value": "={{ $json.all_symptoms || [] }}",
+              "type": "array"
+            },
+            {
+              "id": "s2-10",
+              "name": "caller_number",
+              "value": "={{ $json.caller_number }}",
+              "type": "string"
+            },
+            {
+              "id": "s2-11",
+              "name": "call_sid",
+              "value": "={{ $json.call_sid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        592
+      ],
+      "id": "9661590a-b2a0-4868-80f7-dcc92ae50151",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "s3-1",
+              "name": "classification",
+              "value": "={{ $json.classification }}",
+              "type": "string"
+            },
+            {
+              "id": "s3-2",
+              "name": "user_input",
+              "value": "={{ $json.user_input }}",
+              "type": "string"
+            },
+            {
+              "id": "s3-3",
+              "name": "extracted_symptoms",
+              "value": "={{ $json.extracted_symptoms }}",
+              "type": "array"
+            },
+            {
+              "id": "s3-4",
+              "name": "emergency_level",
+              "value": "={{ $json.emergency_level }}",
+              "type": "string"
+            },
+            {
+              "id": "s3-5",
+              "name": "next_action",
+              "value": "={{ $json.next_action }}",
+              "type": "string"
+            },
+            {
+              "id": "s3-6",
+              "name": "needs_redirect",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "s3-7",
+              "name": "branch_type",
+              "value": "redirect",
+              "type": "string"
+            },
+            {
+              "id": "s3-8",
+              "name": "conversation_stage",
+              "value": "redirecting_to_medical",
+              "type": "string"
+            },
+            {
+              "id": "s3-9",
+              "name": "all_symptoms",
+              "value": "={{ $json.all_symptoms || [] }}",
+              "type": "array"
+            },
+            {
+              "id": "s3-10",
+              "name": "caller_number",
+              "value": "={{ $json.caller_number }}",
+              "type": "string"
+            },
+            {
+              "id": "s3-11",
+              "name": "call_sid",
+              "value": "={{ $json.call_sid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        784
+      ],
+      "id": "f812d03f-228d-4103-87c8-c53031eb7858",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "s4-1",
+              "name": "classification",
+              "value": "={{ $json.classification }}",
+              "type": "string"
+            },
+            {
+              "id": "s4-2",
+              "name": "user_input",
+              "value": "={{ $json.user_input }}",
+              "type": "string"
+            },
+            {
+              "id": "s4-3",
+              "name": "extracted_symptoms",
+              "value": "={{ $json.extracted_symptoms }}",
+              "type": "array"
+            },
+            {
+              "id": "s4-4",
+              "name": "emergency_level",
+              "value": "={{ $json.emergency_level }}",
+              "type": "string"
+            },
+            {
+              "id": "s4-5",
+              "name": "next_action",
+              "value": "={{ $json.next_action }}",
+              "type": "string"
+            },
+            {
+              "id": "s4-6",
+              "name": "response_type",
+              "value": "clarification",
+              "type": "string"
+            },
+            {
+              "id": "s4-7",
+              "name": "branch_type",
+              "value": "clarification",
+              "type": "string"
+            },
+            {
+              "id": "s4-8",
+              "name": "conversation_stage",
+              "value": "processing_response",
+              "type": "string"
+            },
+            {
+              "id": "s4-9",
+              "name": "all_symptoms",
+              "value": "={{ $json.all_symptoms || [] }}",
+              "type": "array"
+            },
+            {
+              "id": "s4-10",
+              "name": "caller_number",
+              "value": "={{ $json.caller_number }}",
+              "type": "string"
+            },
+            {
+              "id": "s4-11",
+              "name": "call_sid",
+              "value": "={{ $json.call_sid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -432,
+        976
+      ],
+      "id": "2382aca9-c086-4ac0-8e71-6def09bccfa7",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "s5-1",
+              "name": "classification",
+              "value": "={{ $json.classification }}",
+              "type": "string"
+            },
+            {
+              "id": "s5-2",
+              "name": "user_input",
+              "value": "={{ $json.user_input }}",
+              "type": "string"
+            },
+            {
+              "id": "s5-3",
+              "name": "extracted_symptoms",
+              "value": "={{ $json.extracted_symptoms }}",
+              "type": "array"
+            },
+            {
+              "id": "s5-4",
+              "name": "emergency_level",
+              "value": "={{ $json.emergency_level }}",
+              "type": "string"
+            },
+            {
+              "id": "s5-5",
+              "name": "next_action",
+              "value": "={{ $json.next_action }}",
+              "type": "string"
+            },
+            {
+              "id": "s5-6",
+              "name": "ending_conversation",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "s5-7",
+              "name": "branch_type",
+              "value": "goodbye",
+              "type": "string"
+            },
+            {
+              "id": "s5-8",
+              "name": "conversation_stage",
+              "value": "closing",
+              "type": "string"
+            },
+            {
+              "id": "s5-9",
+              "name": "all_symptoms",
+              "value": "={{ $json.all_symptoms || [] }}",
+              "type": "array"
+            },
+            {
+              "id": "s5-10",
+              "name": "caller_number",
+              "value": "={{ $json.caller_number }}",
+              "type": "string"
+            },
+            {
+              "id": "s5-11",
+              "name": "call_sid",
+              "value": "={{ $json.call_sid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -432,
+        1216
+      ],
+      "id": "c7254e90-059c-4162-8507-04c54e27f150",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a medical triage assistant for symptom assessment.\n\nAll symptoms reported so far in this conversation: {{ $json.all_symptoms ? $json.all_symptoms.join(\", \") : \"none yet\" }}.\nCurrent symptoms from this message: {{ Array.isArray($json.extracted_symptoms) ? $json.extracted_symptoms.join(\", \") : $json.extracted_symptoms }}.\n\nRULES:\n1. NEVER provide remedy suggestions unless user explicitly asks (e.g. 'what should I do', 'any suggestions', 'give me advice').\n2. When user describes symptoms: acknowledge empathetically, ask ONE clarifying question.\n3. When user asks for suggestions: use ALL symptoms from all_symptoms to give specific advice.\n4. If user asks about medicine, prescription, or wants to talk to a doctor: say 'I will connect you to the doctor now.'\n\n**Return ONLY the spoken message text. No XML, no formatting.**"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        400
+      ],
+      "id": "69671d6f-8540-44b5-a748-2ad5916c08c0",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items.map(item => {\n  const data = item.json;\n  const symptoms = Array.isArray(data.extracted_symptoms) ? data.extracted_symptoms.join(\", \") : \"no symptoms listed\";\n  const allSymptoms = Array.isArray(data.all_symptoms) ? data.all_symptoms.join(\", \") : \"none\";\n  const chatInput = `User message: \"${data.user_input}\". Current symptoms: ${symptoms}. ALL symptoms reported this call: ${allSymptoms}. Emergency level: ${data.emergency_level}. Ask the most relevant medical follow-up question. If user wants advice/suggestions, use ALL past symptoms to respond.`;\n  return { json: { ...data, all_symptoms: data.all_symptoms || [], chatInput } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        400
+      ],
+      "id": "ea7f1dca-85b9-413d-9656-4577a5566d2c",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items.map(item => {\n  const data = item.json;\n  const chatInput = `The user greeted with: \"${data.user_input || 'Hello'}\". Respond warmly, introduce yourself as a virtual medical assistant, and ask about their health concerns.`;\n  return { json: { ...data, chatInput, all_symptoms: data.all_symptoms || [] } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        592
+      ],
+      "id": "0129a6f3-3630-47d3-a412-5291791bfcca",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a friendly virtual medical assistant on a voice call. The user just greeted you. Respond warmly, introduce yourself, and ask about their health concerns.\n\n**Return ONLY the spoken message text. No XML, no formatting.**"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        592
+      ],
+      "id": "05413869-c25b-495d-b301-feb6273fb2d8",
+      "name": "AI Agent3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items.map(item => {\n  const data = item.json;\n  const chatInput = `The user said: \"${data.user_input || ''}\". Acknowledge their comment and gently guide them to describe any health-related symptoms.`;\n  return { json: { ...data, chatInput, all_symptoms: data.all_symptoms || [] } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        784
+      ],
+      "id": "32f7d992-22cb-4c1b-bd5f-2be2d3e24f44",
+      "name": "Code3"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a friendly virtual medical assistant. The user made a casual comment. Reply kindly, then gently steer them toward discussing their health.\n\n**Return ONLY the spoken message text. No XML, no formatting.**"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        784
+      ],
+      "id": "ff75aa1a-b831-41bc-bfe2-6b2ad7f0936d",
+      "name": "AI Agent4"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items.map(item => {\n  const data = item.json;\n  const prevSymptoms = Array.isArray(data.extracted_symptoms) ? data.extracted_symptoms.join(\", \") : (data.extracted_symptoms || 'none');\n  const allSymptoms = Array.isArray(data.all_symptoms) ? data.all_symptoms.join(\", \") : \"none\";\n  const chatInput = `The user replied: \"${data.user_input || ''}\". Previously reported symptoms: ${prevSymptoms}. ALL symptoms reported this entire call: ${allSymptoms}. Acknowledge their reply. If they asked for suggestions, use ALL past symptoms to give advice. Otherwise ask one relevant follow-up question.`;\n  return { json: { ...data, all_symptoms: data.all_symptoms || [], chatInput } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        976
+      ],
+      "id": "94ef0e51-bf03-41be-8c55-1bb6dc6534b5",
+      "name": "Code4"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a medical triage assistant on a voice call.\n\nAll symptoms reported during this entire call: {{ $json.all_symptoms ? $json.all_symptoms.join(\", \") : \"none yet\" }}.\n\nRULES:\n1. Process the user's clarification or response.\n2. If they asked for suggestions/advice: use ALL symptoms from the list above to give specific, practical advice.\n3. If more info is needed: ask ONE relevant follow-up question.\n4. NEVER suggest remedies unless the user explicitly asked.\n\n**Return ONLY the spoken message text. No XML, no formatting.**"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        976
+      ],
+      "id": "6b95b9bc-1e00-4abd-bd7a-0efca25169d7",
+      "name": "AI Agent5"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items.map(item => {\n  const data = item.json;\n  const allSymptomsSummary = Array.isArray(data.all_symptoms) && data.all_symptoms.length > 0 ? data.all_symptoms.join(', ') : 'none reported';\n  const chatInput = `The user ended with: \"${data.user_input || 'goodbye'}\". ALL symptoms reported this call: ${allSymptomsSummary}. Respond warmly, thank them, give a brief summary of ALL their symptoms, and wish them well.`;\n  return { json: { ...data, chatInput, all_symptoms: data.all_symptoms || [] } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        1216
+      ],
+      "id": "929b5fbc-4aa4-49c4-b91c-647fed4e4198",
+      "name": "Code5"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a virtual medical assistant ending a voice call.\n\nAll symptoms reported during this call: {{ $json.all_symptoms && $json.all_symptoms.length > 0 ? $json.all_symptoms.join(\", \") : \"none\" }}.\n\nGive a warm goodbye. Summarize ALL symptoms they mentioned. Advise them to seek medical attention if needed.\n\n**Return ONLY the goodbye message text. No XML, no formatting.**"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        1216
+      ],
+      "id": "838481d3-189e-406f-a6cf-8dcdf700ded4",
+      "name": "AI Agent6"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "8e4f1f25-a957-4afd-917e-7dad6d2efa90",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1920,
+        800
+      ],
+      "id": "f647e1f2-01b4-4133-ae51-8c74fd6f159b",
+      "name": "Webhook",
+      "webhookId": "8e4f1f25-a957-4afd-917e-7dad6d2efa90"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.all()[0]?.json || {};\nconst rawOutput = d.output || \"I'm always here if you need to talk about your health.\";\nconst actionUrl = \"https://nueral.app.n8n.cloud/webhook/8e4f1f25-a957-4afd-917e-7dad6d2efa90\";\nfunction clean(s) { return (s||'').replace(/<\\?xml[^?]*\\?>/gi,'').replace(/<[^>]+>/g,' ').replace(/\\s+/g,' ').trim(); }\nconst xml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Gather input=\"speech\" action=\"${actionUrl}\" method=\"POST\" speechTimeout=\"auto\" timeout=\"10\"><Say voice=\"Polly.Aditi\" volume=\"loud\">${clean(rawOutput)}</Say></Gather><Say voice=\"Polly.Aditi\" volume=\"loud\">Feel free to say anything about your health condition.</Say></Response>`;\nreturn [{ json: { headers: {'Content-Type':'application/xml; charset=utf-8'}, body: xml } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        784
+      ],
+      "id": "4d350667-41e6-4486-87ca-dbe6622eebf8",
+      "name": "Code7"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.all()[0]?.json || {};\nconst rawOutput = d.output || \"We understand this is an emergency. Please describe your location clearly.\";\nconst callerNumber = d.caller_number || \"unknown\";\nconst callSid = d.call_sid || \"unknown\";\nfunction clean(s) { return (s||'').replace(/<\\?xml[^?]*\\?>/gi,'').replace(/<[^>]+>/g,' ').replace(/\\s+/g,' ').trim(); }\nconst address = 'Amrita Vishwa Vidhyapeetham, Amaravati';\nconst xml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say voice=\"Polly.Aditi\" volume=\"loud\">${clean(rawOutput)}</Say><Say voice=\"Polly.Aditi\" volume=\"loud\">Emergency services are being notified. Please stay on the line.</Say></Response>`;\nreturn [{ json: { headers: {'Content-Type':'application/xml; charset=utf-8'}, body: xml, emergencyMessage: address, callerNumber: callerNumber, callSid: callSid } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        192
+      ],
+      "id": "db80a108-62fd-4096-8918-8836670e1d3f",
+      "name": "Code8"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.all()[0]?.json || {};\nconst rawOutput = d.output || \"Could you tell me more about your symptoms?\";\nconst actionUrl = \"https://nueral.app.n8n.cloud/webhook/8e4f1f25-a957-4afd-917e-7dad6d2efa90\";\nfunction clean(s) { return (s||'').replace(/<\\?xml[^?]*\\?>/gi,'').replace(/<[^>]+>/g,' ').replace(/\\s+/g,' ').trim(); }\nconst xml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Gather input=\"speech\" action=\"${actionUrl}\" method=\"POST\" speechTimeout=\"auto\" timeout=\"10\"><Say voice=\"Polly.Aditi\" volume=\"loud\">${clean(rawOutput)}</Say></Gather><Say voice=\"Polly.Aditi\" volume=\"loud\">We didn't catch that. Please try again.</Say></Response>`;\nreturn [{ json: { headers: {'Content-Type':'application/xml; charset=utf-8'}, body: xml } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        400
+      ],
+      "id": "47a94fba-1963-46c2-91bb-593bac322946",
+      "name": "Code9"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.all()[0]?.json || {};\nconst rawOutput = d.output || \"Hello! Welcome. How can I assist you with your health today?\";\nconst actionUrl = \"https://nueral.app.n8n.cloud/webhook/8e4f1f25-a957-4afd-917e-7dad6d2efa90\";\nfunction clean(s) { return (s||'').replace(/<\\?xml[^?]*\\?>/gi,'').replace(/<[^>]+>/g,' ').replace(/\\s+/g,' ').trim(); }\nconst xml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Gather input=\"speech\" action=\"${actionUrl}\" method=\"POST\" speechTimeout=\"auto\" timeout=\"10\"><Say voice=\"Polly.Aditi\" volume=\"loud\">${clean(rawOutput)}</Say></Gather><Say voice=\"Polly.Aditi\" volume=\"loud\">I didn't hear you. Could you say that again?</Say></Response>`;\nreturn [{ json: { headers: {'Content-Type':'application/xml; charset=utf-8'}, body: xml } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        592
+      ],
+      "id": "19f6f2cf-9471-4ad0-b36e-a31244fa49f1",
+      "name": "Code10"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.all()[0]?.json || {};\nconst rawOutput = d.output || \"I'm sorry, I didn't catch that. Can you please repeat?\";\nconst actionUrl = \"https://nueral.app.n8n.cloud/webhook/8e4f1f25-a957-4afd-917e-7dad6d2efa90\";\nfunction clean(s) { return (s||'').replace(/<\\?xml[^?]*\\?>/gi,'').replace(/<[^>]+>/g,' ').replace(/\\s+/g,' ').trim(); }\nconst xml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Gather input=\"speech\" action=\"${actionUrl}\" method=\"POST\" speechTimeout=\"auto\" timeout=\"10\"><Say voice=\"Polly.Aditi\" volume=\"loud\">${clean(rawOutput)}</Say></Gather><Say voice=\"Polly.Aditi\" volume=\"loud\">Still didn't get that. Let's try again.</Say></Response>`;\nreturn [{ json: { headers: {'Content-Type':'application/xml; charset=utf-8'}, body: xml } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        976
+      ],
+      "id": "595a93f1-3c0a-4c14-85e6-5810de1b4de3",
+      "name": "Code11"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.all()[0]?.json || {};\nconst rawOutput = d.output || \"Thank you for speaking with me. Stay healthy!\";\nfunction clean(s) { return (s||'').replace(/<\\?xml[^?]*\\?>/gi,'').replace(/<[^>]+>/g,' ').replace(/\\s+/g,' ').trim(); }\nconst xml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say voice=\"Polly.Aditi\" volume=\"loud\">${clean(rawOutput)}</Say><Say voice=\"Polly.Aditi\" volume=\"loud\">Goodbye!</Say><Hangup/></Response>`;\nreturn [{ json: { headers: {'Content-Type':'application/xml; charset=utf-8'}, body: xml } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        1216
+      ],
+      "id": "176ed2d0-f162-42ac-9d89-0db8bd46f873",
+      "name": "Code12"
+    },
+    {
+      "parameters": {
+        "jsCode": "try {\n  const body = $input.first().json.body || {};\n  const speech = body.SpeechResult || body.UnstableSpeechResult || body.user_message || body.speech || body.RecognitionResult || body.text || \"\";\n  const callSid = body.CallSid || \"unknown\";\n  const from = body.From || \"unknown\";\n  const callStatus = body.CallStatus || \"unknown\";\n  return [{ json: { isGreeting: speech.trim() === \"\" ? \"true\" : \"false\", userText: speech.trim(), call_sid: callSid, caller_number: from, call_status: callStatus, debugInfo: body } }];\n} catch (error) {\n  return [{ json: { isGreeting: \"true\", userText: \"\", call_sid: \"error\", caller_number: \"error\", error: error.message } }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1696,
+        800
+      ],
+      "id": "52cf0e42-0c0d-4406-b527-2946526ec390",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=User said: \"{{ $json.userText }}\"\n\nYou are an AI classifier for medical conversations. Return ONLY a JSON object.\n\nClassification (priority order):\n1. EMERGENCY_KEYWORDS - Critical: difficulty breathing, chest pain, unconsciousness, severe bleeding, heart attack, stroke.\n2. PRESCRIPTION_REQUEST - User asks for medicine, prescription, or wants to speak to/consult a doctor.\n3. SYMPTOM_DESCRIPTION - User describes medical symptoms or discomfort.\n4. GREETING - Hello, hi, good morning, etc.\n5. GENERAL_CONVERSATION - Casual non-health talk.\n6. CLARIFICATION_RESPONSE - User answers a previous medical question.\n7. GOODBYE - Farewell.\n\nRules:\n- 'I need medicine', 'give me prescription', 'talk to doctor', 'consult doctor', 'what medicine' → PRESCRIPTION_REQUEST, next_action=connect_doctor\n- Empty input → classification=Pleasetalk\n- Return ONLY JSON.\n\nFormat:\n{\"classification\":\"<cat>\",\"user_input\":\"<text>\",\"extracted_symptoms\":[\"<symptom>\"],\"emergency_level\":\"critical|high|medium|low|none\",\"next_action\":\"emergency_response|connect_doctor|symptom_analysis|greeting_response|redirect_to_medical|process_clarification|provide_closure\"}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        -1472,
+        800
+      ],
+      "id": "767e9fd9-a520-4f64-b42f-577dcea68e5e",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first()?.json || {};\nconst userText = item.userText ?? item.user_input ?? item.text ?? \"\";\nconst llmRaw = item.text ?? item.llm_output ?? \"{}\";\nconst callerNumber = item.caller_number || \"unknown\";\nconst callSid = item.call_sid || \"unknown\";\n\nif (!userText || userText.trim() === \"\") {\n  return { json: { classification: \"Pleasetalk\", user_input: \"\", extracted_symptoms: [], emergency_level: \"none\", next_action: \"redirect_to_medical\", caller_number: callerNumber, call_sid: callSid } };\n}\n\nlet parsed;\ntry {\n  const cleaned = llmRaw.replace(/```json/gi, \"\").replace(/```/g, \"\").trim();\n  parsed = JSON.parse(cleaned);\n} catch (e) {\n  parsed = { classification: \"Pleasetalk\", user_input: userText, extracted_symptoms: [], emergency_level: \"none\", next_action: \"redirect_to_medical\" };\n}\n\nreturn { json: { classification: parsed.classification || \"Pleasetalk\", user_input: parsed.user_input || userText, extracted_symptoms: Array.isArray(parsed.extracted_symptoms) ? parsed.extracted_symptoms : [], emergency_level: parsed.emergency_level || \"none\", next_action: parsed.next_action || \"redirect_to_medical\", caller_number: callerNumber, call_sid: callSid } };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1120,
+        800
+      ],
+      "id": "2bf4c986-4d95-4830-886a-b9e06e74f9ec",
+      "name": "Parse LLM Output"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b69176a7-28f1-4d2e-92ab-ed30caae5b38",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "hn4hBrCqPgpsDKHR",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.call_sid }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -80,
+        1552
+      ],
+      "id": "1b15c9fd-2d1d-45a9-848e-36e2b879fadf",
+      "name": "Simple Memory4"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.call_sid }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        96,
+        1552
+      ],
+      "id": "63ab3cad-6682-49b0-9ac7-7cc6d7886c8b",
+      "name": "Simple Memory5"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.call_sid }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        96,
+        1744
+      ],
+      "id": "d7810916-16f3-46f0-a19d-8eba2c5eda6b",
+      "name": "Simple Memory2"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.call_sid }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        1552
+      ],
+      "id": "134e3230-aa0c-4d36-8b69-424533771441",
+      "name": "Simple Memory3"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1472,
+        992
+      ],
+      "id": "e6a3b021-2fac-45bd-88d9-41d64021aa6b",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "hn4hBrCqPgpsDKHR",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a medical emergency AI assistant. Life-threatening symptoms reported: {{ $json.all_symptoms ? $json.all_symptoms.join(\", \") : $json.extracted_symptoms }}.\n\nAcknowledge calmly, ask for location, reassure help is coming.\n\n**Return ONLY the spoken message text. No XML, no formatting.**"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        192
+      ],
+      "id": "6bcd2997-2f10-4dfc-9d35-2dc70c7e8abe",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputItems = $input.all();\nreturn inputItems.map(item => {\n  const data = item.json;\n  let symptomsList;\n  try { symptomsList = Array.isArray(data.extracted_symptoms) ? data.extracted_symptoms : JSON.parse(data.extracted_symptoms); } catch { symptomsList = []; }\n  const symptomSummary = symptomsList.length > 0 ? symptomsList.join(\", \") : \"a medical emergency\";\n  const chatInput = `Please stay calm. You said: \"${data.user_input}\". This may indicate: ${symptomSummary}. Help is on the way. Please tell me your exact location.`;\n  return { json: { ...data, chatInput, all_symptoms: data.all_symptoms || [] } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        192
+      ],
+      "id": "76a4588c-5c3d-45b5-b29f-80c73fbae29c",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.body }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/xml"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        576,
+        784
+      ],
+      "id": "2f450c40-072e-4a0b-ae6f-2b13b40ff9ef",
+      "name": "General Conversation"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.body }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/xml"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        576,
+        976
+      ],
+      "id": "a3b49c19-3b3b-4d19-b2b1-0e193288f255",
+      "name": "Clarification"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.body }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/xml"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        576,
+        1216
+      ],
+      "id": "509ccc33-cbfe-47fa-af6f-067d6091fb41",
+      "name": "Good Bye"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.body }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/xml"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        576,
+        592
+      ],
+      "id": "d773d927-3b9d-4687-ab92-9fc874073416",
+      "name": "Greeting"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.body }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/xml"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        576,
+        400
+      ],
+      "id": "5ae87b4b-dd6e-49e5-b0f5-b498834e9f40",
+      "name": "Symptoms"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Gather input=\"speech\" action=\"https://nueral.app.n8n.cloud/webhook/8e4f1f25-a957-4afd-917e-7dad6d2efa90\" method=\"POST\" speechTimeout=\"auto\" timeout=\"10\"><Say voice=\"Polly.Aditi\" volume=\"loud\">Please talk about your issue. What health concerns are you experiencing?</Say></Gather><Say voice=\"Polly.Aditi\" volume=\"loud\">I didn't hear anything. Please try again.</Say></Response>",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/xml"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -432,
+        1424
+      ],
+      "id": "20e09b86-3eac-4447-9576-7d0097019a3c",
+      "name": "Talk Something"
+    },
+    {
+      "parameters": {
+        "resource": "call",
+        "from": "+15067141519",
+        "to": "+919000515463",
+        "twiml": true,
+        "message": "=<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say voice=\"Polly.Aditi\">EMERGENCY ALERT. A patient has called with a medical emergency. Caller: {{ $json.callerNumber }}. Location: {{ $json.emergencyMessage }}. Please respond immediately.</Say></Response>",
+        "options": {}
+      },
+      "id": "1ba14ea5-2392-4597-bf18-2830dbe5a1d4",
+      "name": "Call Emergency Contact",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        800,
+        192
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "BGryZIMIr9c1YiYl",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.body }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/xml"
+              }
+            ]
+          }
+        }
+      },
+      "id": "8003d0b7-188c-47c1-9d45-0b1510aa4c77",
+      "name": "Emergency Response with Call",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        560,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "id-1",
+              "name": "all_symptoms",
+              "value": "={{ $json.extracted_symptoms && $json.extracted_symptoms.length > 0 ? [...($json.all_symptoms || []), ...$json.extracted_symptoms] : ($json.all_symptoms || []) }}",
+              "type": "array"
+            },
+            {
+              "id": "id-2",
+              "name": "classification",
+              "value": "={{ $json.classification }}",
+              "type": "string"
+            },
+            {
+              "id": "id-3",
+              "name": "user_input",
+              "value": "={{ $json.user_input }}",
+              "type": "string"
+            },
+            {
+              "id": "id-4",
+              "name": "extracted_symptoms",
+              "value": "={{ $json.extracted_symptoms }}",
+              "type": "array"
+            },
+            {
+              "id": "id-5",
+              "name": "emergency_level",
+              "value": "={{ $json.emergency_level }}",
+              "type": "string"
+            },
+            {
+              "id": "id-6",
+              "name": "next_action",
+              "value": "={{ $json.next_action }}",
+              "type": "string"
+            },
+            {
+              "id": "id-7",
+              "name": "caller_number",
+              "value": "={{ $json.caller_number }}",
+              "type": "string"
+            },
+            {
+              "id": "id-8",
+              "name": "call_sid",
+              "value": "={{ $json.call_sid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c0cee1a4-fa99-4b65-a100-f599147b8e57",
+      "name": "Accumulate Symptoms",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -896,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst callSid = item.call_sid || 'call_' + Date.now();\nconst conferenceName = 'room' + callSid.replace(/[^a-zA-Z0-9]/g, '');\nconst patientTwiml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say voice=\"Polly.Aditi\">Please hold. We are connecting you to the doctor now.</Say><Dial><Conference startConferenceOnEnter=\"true\" endConferenceOnExit=\"false\" waitUrl=\"http://twimlets.com/holdmusic?Bucket=com.twilio.music.classical\" beep=\"false\">${conferenceName}</Conference></Dial><Say voice=\"Polly.Aditi\">The doctor is unavailable. Please try again later.</Say><Hangup/></Response>`;\nconst doctorTwiml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Say voice=\"Polly.Aditi\">You have a patient requesting a prescription consultation. Connecting now.</Say><Dial><Conference startConferenceOnEnter=\"true\" endConferenceOnExit=\"true\" beep=\"false\">${conferenceName}</Conference></Dial></Response>`;\nreturn [{ json: { ...item, conference_name: conferenceName, patient_twiml: patientTwiml, doctor_twiml: doctorTwiml, doctor_phone: '+917095122012' } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1136,
+        1264
+      ],
+      "id": "70d44867-7809-45c7-bcae-41bd0db1217c",
+      "name": "Setup Doctor Conference"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.patient_twiml }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/xml"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -720,
+        1152
+      ],
+      "id": "cbbfcfc3-ae67-4ac9-9d92-4120985f1089",
+      "name": "Patient Joins Conference"
+    },
+    {
+      "parameters": {
+        "resource": "call",
+        "from": "+15067141519",
+        "to": "={{ $json.doctor_phone }}",
+        "twiml": true,
+        "message": "={{ $json.doctor_twiml }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        -704,
+        1376
+      ],
+      "id": "2dd3f418-d862-4e4d-874e-4337613bfc12",
+      "name": "Call Doctor for Prescription",
+      "credentials": {
+        "twilioApi": {
+          "id": "BGryZIMIr9c1YiYl",
+          "name": "Twilio account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Talk Something",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Setup Doctor Conference",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Code4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Code5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code5": {
+      "main": [
+        [
+          {
+            "node": "AI Agent6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Code8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Code9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent3": {
+      "main": [
+        [
+          {
+            "node": "Code10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent4": {
+      "main": [
+        [
+          {
+            "node": "Code7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent5": {
+      "main": [
+        [
+          {
+            "node": "Code11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent6": {
+      "main": [
+        [
+          {
+            "node": "Code12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code7": {
+      "main": [
+        [
+          {
+            "node": "General Conversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code8": {
+      "main": [
+        [
+          {
+            "node": "Emergency Response with Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code9": {
+      "main": [
+        [
+          {
+            "node": "Symptoms",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code10": {
+      "main": [
+        [
+          {
+            "node": "Greeting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code11": {
+      "main": [
+        [
+          {
+            "node": "Clarification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code12": {
+      "main": [
+        [
+          {
+            "node": "Good Bye",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Parse LLM Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse LLM Output": {
+      "main": [
+        [
+          {
+            "node": "Accumulate Symptoms",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Accumulate Symptoms": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emergency Response with Call": {
+      "main": [
+        [
+          {
+            "node": "Call Emergency Contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Setup Doctor Conference": {
+      "main": [
+        [
+          {
+            "node": "Patient Joins Conference",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Call Doctor for Prescription",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "AI Agent3",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "AI Agent4",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "AI Agent5",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "AI Agent6",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory4": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory5": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent6",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory2": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory3": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent4",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "d1ef10ba-b0af-4d1e-9e49-8e3db28b3cdf",
+  "meta": {
+    "instanceId": "816c0abcf5179307d0fdd535092b26b0e1172b7ec88a342b3c62467ea9dfe1a2"
+  },
+  "id": "RDgP6CbCwWazo6hJ",
+  "tags": []
+}
