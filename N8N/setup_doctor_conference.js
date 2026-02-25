@@ -1,0 +1,6 @@
+const item = $input.first().json;
+const callSid = item.call_sid || 'call_' + Date.now();
+const conferenceName = 'room' + callSid.replace(/[^a-zA-Z0-9]/g, '');
+const patientTwiml = `<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="Polly.Aditi">Please hold. We are connecting you to the doctor now.</Say><Dial><Conference startConferenceOnEnter="true" endConferenceOnExit="false" waitUrl="http://twimlets.com/holdmusic?Bucket=com.twilio.music.classical" beep="false">${conferenceName}</Conference></Dial><Say voice="Polly.Aditi">The doctor is unavailable. Please try again later.</Say><Hangup/></Response>`;
+const doctorTwiml = `<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="Polly.Aditi">You have a patient requesting a prescription consultation. Connecting now.</Say><Dial><Conference startConferenceOnEnter="true" endConferenceOnExit="true" beep="false">${conferenceName}</Conference></Dial></Response>`;
+return [{ json: { ...item, conference_name: conferenceName, patient_twiml: patientTwiml, doctor_twiml: doctorTwiml, doctor_phone: '+917095122012' } }];
