@@ -1,5 +1,5 @@
 
-# Ambulance + Doctor Call - n8n Workflow
+# HEALTHWISE VOICE AI AGENT - SYSTEM PROMPT
 
 An intelligent AI-powered healthcare assistant workflow that handles emergency calls, symptom analysis, and connects patients with doctors or ambulance services using Twilio and Google Gemini AI.
 
@@ -261,7 +261,7 @@ Doctor joins → Three-way consultation begins
 - ✅ Doctor conference call initiated
 - ✅ Patient and doctor connected
 
-**Main point that out agent doen't prescribe any medicines only it can give suggestions for prescriptions i can connect you with doctor**
+**Main point is that our agent doen't prescribe any medicines it can only give suggestions, for prescriptions you can connect to the nearest doctor over call by the agent.**
 ---
 
 ### Example 2: Emergency - Ambulance Dispatch
