@@ -1,26 +1,6 @@
-const inputData = $input.all()[0]?.json || {};
-const rawOutput = inputData.output || "I'm sorry, I didn't catch that. Can you please repeat?";
-const actionUrl = "https://nueralnavigators1.app.n8n.cloud/webhook/8e4f1f25-a957-4afd-917e-7dad6d2efa90";
-
-function extractTextFromSay(str) {
-  if (!str) return "";
-  str = str.replace(/<\?xml[^?]*\?>/gi, '').trim();
-  str = str.replace(/<[^>]+>/g, ' ').trim();
-  str = str.replace(/\s+/g, ' ').trim();
-  return str;
-}
-
-const messageText = extractTextFromSay(rawOutput);
-
-const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Gather input="speech" action="${actionUrl}" method="POST" speechTimeout="auto" timeout="10">
-    <Say voice="Polly.Aditi" volume="loud">${messageText}</Say>
-  </Gather>
-  <Say voice="Polly.Aditi" volume="loud">Still didn't get that. Let's try again.</Say>
-</Response>`;
-
-return [{
-  headers: { 'Content-Type': 'application/xml; charset=utf-8' },
-  body: xml
-}];
+const d = $input.all()[0]?.json || {};
+const rawOutput = d.output || "I'm sorry, I didn't catch that. Can you please repeat?";
+const actionUrl = "https://nueral.app.n8n.cloud/webhook/8e4f1f25-a957-4afd-917e-7dad6d2efa90";
+function clean(s) { return (s||'').replace(/<\?xml[^?]*\?>/gi,'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim(); }
+const xml = `<?xml version="1.0" encoding="UTF-8"?><Response><Gather input="speech" action="${actionUrl}" method="POST" speechTimeout="auto" timeout="10"><Say voice="Polly.Aditi" volume="loud">${clean(rawOutput)}</Say></Gather><Say voice="Polly.Aditi" volume="loud">Still didn't get that. Let's try again.</Say></Response>`;
+return [{ json: { headers: {'Content-Type':'application/xml; charset=utf-8'}, body: xml } }];
