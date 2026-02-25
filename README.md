@@ -261,7 +261,7 @@ Doctor joins → Three-way consultation begins
 - ✅ Doctor conference call initiated
 - ✅ Patient and doctor connected
 
-**VoiceHealth AI provides health suggestions and home remedies only. It cannot prescribe medicines. For medical prescriptions, the agent will seamlessly transfer your call to a verified doctor**---
+**VoiceHealth AI provides health suggestions and home remedies only. It cannot prescribe medicines. For medical prescriptions, the agent will seamlessly transfer your call to a verified doctor**
 
 ### Example 2: Emergency - Ambulance Dispatch
 
